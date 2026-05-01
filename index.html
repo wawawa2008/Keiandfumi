@@ -1,4 +1,3 @@
-
 ```html
 <!DOCTYPE html>
 <html lang="ja">
@@ -6,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keisuke & Fumika Wedding | Official Site</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Noto+Serif+JP:wght@300;600&display=swap" rel="stylesheet">
@@ -16,17 +17,21 @@
             background-color: #fdfbf7;
             color: #333;
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
         .font-cinzel { font-family: 'Cinzel', serif; }
         .gold-accent { color: #c5a059; }
         .bg-gold { background-color: #c5a059; }
         
-        .page-transition {、
-            transition: opacity 0.4s ease-in-out;
+        .page-transition {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-out;
+            opacity: 1;
+            transform: translateY(0);
         }
         .hidden-page {
             display: none;
             opacity: 0;
+            transform: translateY(20px);
         }
 
         .img-overlay {
@@ -36,30 +41,37 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #888;
-            font-size: 0.8rem;
-            text-align: center;
-            padding: 20px;
         }
         
         .img-overlay img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 1.2s ease;
+            transition: transform 1.5s ease;
         }
         .img-overlay:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .hero-bg {
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070&auto=format&fit=crop');
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://lh3.googleusercontent.com/d/1X6G0fXUuXmZ7o7_jXpQzLzJ9zW_vX_Z_'); /* Hero image - building exterior */
             background-size: cover;
             background-position: center;
         }
         
         .map-container {
-            filter: grayscale(100%) invert(90%) contrast(90%);
+            filter: grayscale(100%) contrast(90%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c5a059;
         }
     </style>
 </head>
@@ -68,49 +80,51 @@
     <!-- Main Content Page -->
     <div id="main-page" class="page-transition">
         <!-- Navigation -->
-        <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
             <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="font-cinzel text-xl tracking-widest gold-accent cursor-pointer" onclick="showMain()">K & F</div>
-                <div class="hidden md:flex space-x-8 text-xs tracking-[0.2em] uppercase">
-                    <a href="#top" class="hover:text-[#c5a059]">Top</a>
-                    <button onclick="showProfile()" class="hover:text-[#c5a059]">Profile</button>
-                    <a href="#ceremony" class="hover:text-[#c5a059]">Ceremony</a>
-                    <a href="#access" class="hover:text-[#c5a059]">Access</a>
-                    <button onclick="showRSVP()" class="gold-accent font-bold">RSVP</button>
+                <div class="hidden md:flex space-x-8 text-[10px] tracking-[0.2em] uppercase">
+                    <a href="#top" class="hover:text-[#c5a059] transition">Top</a>
+                    <button onclick="showProfile()" class="hover:text-[#c5a059] transition">Profile</button>
+                    <a href="#ceremony" class="hover:text-[#c5a059] transition">Ceremony</a>
+                    <a href="#access" class="hover:text-[#c5a059] transition">Access</a>
+                    <a href="https://forms.gle/V3ySGAhySVwtayby8" target="_blank" class="gold-accent font-bold">RSVP</a>
                 </div>
-                <!-- Mobile Profile Link -->
-                <button onclick="showProfile()" class="md:hidden text-xs gold-accent font-bold tracking-widest">PROFILE</button>
+                <a href="https://forms.gle/V3ySGAhySVwtayby8" target="_blank" class="md:hidden text-[10px] gold-accent font-bold tracking-widest border border-gold px-4 py-1 rounded-full">RSVP</a>
             </div>
         </nav>
 
         <!-- Hero Section -->
         <section id="top" class="h-screen flex flex-col items-center justify-center text-center relative text-white hero-bg">
-            <div class="absolute inset-0 bg-black/20 z-0"></div>
+            <div class="absolute inset-0 bg-black/10 z-0"></div>
             <div class="z-10 px-4">
-                <p class="font-cinzel tracking-[0.4em] mb-4 text-gray-200 uppercase">2026.10.25 SUN</p>
-                <h1 class="text-5xl md:text-8xl font-cinzel mb-8 tracking-tighter">Keisuke & Fumika</h1>
+                <p class="font-cinzel tracking-[0.4em] mb-4 text-gray-200 uppercase text-xs sm:text-sm">2026.10.25 SUN</p>
+                <h1 class="text-4xl sm:text-6xl md:text-8xl font-cinzel mb-8 tracking-tighter">Keisuke & Fumika</h1>
                 <div class="w-12 h-[1px] bg-white mx-auto mb-12 opacity-50"></div>
-                <p class="text-sm tracking-[0.3em] mb-12 uppercase">Tokyo Kaikan - Magnolia</p>
-                <div class="flex flex-col md:flex-row gap-4 justify-center">
-                    <button onclick="showRSVP()" class="bg-gold text-white px-12 py-4 rounded-full text-sm tracking-widest hover:opacity-90 transition shadow-2xl">
+                <p class="text-xs sm:text-sm tracking-[0.3em] mb-12 uppercase">Tokyo Kaikan - Magnolia</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="https://forms.gle/V3ySGAhySVwtayby8" target="_blank" class="bg-gold text-white px-10 py-4 rounded-full text-[10px] tracking-widest hover:opacity-90 transition shadow-xl uppercase inline-block">
                         RSVP - 出席回答
-                    </button>
-                    <button onclick="showProfile()" class="bg-white/20 backdrop-blur-sm text-white border border-white/40 px-12 py-4 rounded-full text-sm tracking-widest hover:bg-white/30 transition">
+                    </a>
+                    <button onclick="showProfile()" class="bg-white/10 backdrop-blur-md text-white border border-white/40 px-10 py-4 rounded-full text-[10px] tracking-widest hover:bg-white/20 transition uppercase">
                         Profile - プロフィール
                     </button>
                 </div>
             </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+                <div class="w-[1px] h-12 bg-white"></div>
+            </div>
         </section>
 
-        <!-- Venue Intro -->
+        <!-- Venue Intro (Exterior Close-up) -->
         <section class="max-w-6xl mx-auto py-24 px-6">
             <div class="grid md:grid-cols-2 gap-16 items-center">
                 <div class="img-overlay aspect-[4/3] shadow-2xl rounded-sm">
-                    
+                    <img src="https://lh3.googleusercontent.com/d/1X4L0N9ZzZ9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z" alt="[東京會舘 エントランス]">
                 </div>
                 <div class="space-y-8">
-                    <h2 class="font-cinzel text-4xl gold-accent tracking-widest uppercase">New Classics</h2>
-                    <p class="text-xl font-bold leading-relaxed">歴史を繋ぐ、<br>丸の内の迎賓館にて</p>
+                    <h2 class="font-cinzel text-3xl gold-accent tracking-widest uppercase">New Classics</h2>
+                    <p class="text-xl sm:text-2xl font-bold leading-relaxed">歴史を繋ぐ、<br>丸の内の迎賓館にて</p>
                     <p class="leading-loose text-gray-600 text-sm">
                         大正11年の創業以来、数々の賓客を迎えてきた東京會舘。<br>
                         その格式ある空間とおもてなしを大切に、<br>
@@ -120,52 +134,71 @@
             </div>
         </section>
 
-        <!-- Ceremony Section -->
+        <!-- Ceremony Section (Chapel) -->
         <section id="ceremony" class="bg-[#f4f1eb] py-24 px-6">
             <div class="max-w-5xl mx-auto">
-                <h2 class="font-cinzel text-center text-3xl mb-16 tracking-widest uppercase">Ceremony & Reception</h2>
+                <h2 class="font-cinzel text-center text-2xl mb-16 tracking-widest uppercase">Ceremony & Reception</h2>
                 <div class="grid md:grid-cols-3 gap-8 items-stretch">
                     <div class="md:col-span-2 img-overlay aspect-video shadow-lg rounded-sm">
-                        
+                        <img src="https://lh3.googleusercontent.com/d/1X5M0N9ZzZ9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z" alt="[東京會舘 チャペル]">
                     </div>
-                    <div class="bg-white p-10 text-left space-y-6 shadow-sm flex flex-col justify-center">
-                        <p class="gold-accent font-cinzel text-xs tracking-widest uppercase">Location</p>
+                    <div class="bg-white p-10 text-left space-y-6 shadow-sm flex flex-col justify-center border-t-4 border-gold">
+                        <p class="gold-accent font-cinzel text-[10px] tracking-widest uppercase">Schedule</p>
                         <div>
-                            <p class="text-sm text-gray-400 mb-1 uppercase text-[10px]">Ceremony</p>
-                            <p class="text-lg font-bold">12:15 〜 7F チャペル</p>
+                            <p class="text-gray-400 mb-1 uppercase text-[9px] tracking-tighter">Ceremony</p>
+                            <p class="text-lg font-bold font-cinzel">12:15 <span class="text-sm font-normal text-gray-500">〜 7F Chapel</span></p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-400 mb-1 uppercase text-[10px]">Reception</p>
-                            <p class="text-lg font-bold">13:15 〜 3F マグノリア</p>
+                            <p class="text-gray-400 mb-1 uppercase text-[9px] tracking-tighter">Reception</p>
+                            <p class="text-lg font-bold font-cinzel">13:15 <span class="text-sm font-normal text-gray-500">〜 3F Magnolia</span></p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Magnolia Intro -->
+        <!-- Magnolia Intro (Reception Room) -->
         <section class="py-24 px-6 bg-white">
             <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-16">
                 <div class="flex-1 space-y-6">
-                    <h3 class="font-cinzel text-2xl gold-accent tracking-widest uppercase">The Magnolia</h3>
-                    <p class="text-lg font-bold">木の温もりに包まれた祝宴</p>
+                    <h3 class="font-cinzel text-xl gold-accent tracking-widest uppercase">The Magnolia</h3>
+                    <p class="text-xl font-bold">木の温もりに包まれた祝宴</p>
                     <p class="text-sm text-gray-600 leading-loose">
                         披露宴会場「マグノリア」は、皇居の緑を望む開放的な窓と、上質な木材をあしらったモダンな空間が特徴です。お二人の大切な時間を、リラックスした雰囲気の中でお過ごしいただけます。
                     </p>
-                    <button onclick="showProfile()" class="text-xs gold-accent border-b border-gold pb-1 tracking-widest uppercase hover:opacity-60 transition">
+                    <button onclick="showProfile()" class="text-[10px] gold-accent border-b border-gold pb-1 tracking-widest uppercase hover:opacity-60 transition inline-block">
                         View our profile →
                     </button>
                 </div>
                 <div class="flex-1 img-overlay aspect-[4/3] shadow-xl">
-                    
+                    <img src="https://lh3.googleusercontent.com/d/1X2K0N9ZzZ9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z" alt="[東京會舘 マグノリア]">
                 </div>
             </div>
         </section>
 
-        <!-- Access / Google Map -->
+        <!-- Spiral Staircase / Chandelier -->
+        <section class="py-24 px-6 bg-[#2d2216] text-white">
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div class="img-overlay aspect-[3/4] shadow-2xl rounded-sm overflow-hidden">
+                    <img src="https://lh3.googleusercontent.com/d/1X3L0N9ZzZ9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z" alt="[螺旋階段]">
+                </div>
+                <div class="space-y-8">
+                    <h3 class="font-cinzel text-xl gold-accent tracking-widest uppercase">Iconic Moments</h3>
+                    <p class="text-2xl font-bold leading-relaxed">輝きに包まれる<br>螺旋階段でのひととき</p>
+                    <p class="text-sm text-gray-300 leading-loose">
+                        東京會舘の象徴とも言える華やかなシャンデリアと、美しく流れるような曲線を描く螺旋階段。フォトスポットとしても愛されるこの場所で、お二人とゲストの皆様の思い出を刻みます。
+                    </p>
+                    <div class="img-overlay aspect-video rounded-sm mt-8">
+                        <img src="https://lh3.googleusercontent.com/d/1X1J0N9ZzZ9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z9Z" alt="[シャンデリア]">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Access -->
         <section id="access" class="py-24 bg-[#fdfbf7]">
             <div class="max-w-5xl mx-auto px-6 text-center">
-                <h2 class="font-cinzel text-3xl mb-12 tracking-widest uppercase">Access</h2>
+                <h2 class="font-cinzel text-2xl mb-12 tracking-widest uppercase">Access</h2>
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <div class="text-left space-y-6">
                         <div>
@@ -173,24 +206,23 @@
                             <p class="text-sm text-gray-600 mt-2">〒100-0005 東京都千代田区丸の内3-2-1</p>
                         </div>
                         <div class="space-y-4 text-sm text-gray-600">
-                            <p>・地下鉄「二重橋前駅」より直結</p>
-                            <p>・地下鉄「日比谷駅」より徒歩3分</p>
-                            <p>・JR「有楽町駅」より徒歩5分</p>
-                            <p>・JR「東京駅」より徒歩10分</p>
+                            <p class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-gold rounded-full"></span> 地下鉄「二重橋前駅」より直結</p>
+                            <p class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-gold rounded-full"></span> 地下鉄「日比谷駅」より徒歩3分</p>
+                            <p class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-gold rounded-full"></span> JR「有楽町駅」より徒歩5分</p>
+                            <p class="flex items-center gap-2"><span class="w-1.5 h-1.5 bg-gold rounded-full"></span> JR「東京駅」より徒歩10分</p>
                         </div>
-                        <a href="https://maps.app.goo.gl/9m266Tf2k6yH87Vw7" target="_blank" class="inline-block border border-gold gold-accent px-8 py-3 rounded-full text-xs tracking-widest hover:bg-gold hover:text-white transition">
-                            Googleマップで見る
+                        <a href="https://maps.app.goo.gl/yzQV1Gvn2pZtFaUq8?g_st=ipc" target="_blank" class="inline-block border border-gold gold-accent px-8 py-3 rounded-full text-[10px] tracking-widest hover:bg-gold hover:text-white transition uppercase">
+                            Google Mapsで見る
                         </a>
                     </div>
-                    <div class="h-80 w-full overflow-hidden rounded-sm shadow-inner bg-gray-100">
+                    <div class="h-80 w-full overflow-hidden rounded-sm shadow-inner bg-gray-200">
                         <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m12!1m3!1d3240.916723049182!2d139.75883257623916!3d35.67910793010376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bf760e90657%3A0x6b9d62d22d2f7041!2z5p2x5Lqs5pyD6aSo!5e0!3m2!1sja!2sjp!4v1714470000000!5m2!1sja!2sjp" 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.9167!2d139.7588!3d35.6791!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188bf760e90657%3A0x6b9d62d22d2f7041!2z5p2x5Lqs5pyD6aSo!5e0!3m2!1sja!2sjp!4v1714470000000!5m2!1sja!2sjp" 
                             width="100%" 
                             height="100%" 
                             style="border:0;" 
                             allowfullscreen="" 
                             loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade"
                             class="map-container">
                         </iframe>
                     </div>
@@ -199,30 +231,29 @@
         </section>
 
         <footer class="py-16 bg-white border-t border-gray-100 text-center">
-            <p class="font-cinzel text-sm gold-accent tracking-[0.3em]">K & F</p>
-            <p class="text-[10px] text-gray-400 mt-4 tracking-widest uppercase">© 2026 Keisuke & Fumika Wedding</p>
+            <p class="font-cinzel text-xs gold-accent tracking-[0.3em]">K & F</p>
+            <p class="text-[9px] text-gray-400 mt-4 tracking-widest uppercase">© 2026 Keisuke & Fumika Wedding</p>
         </footer>
     </div>
 
     <!-- Profile Page -->
     <div id="profile-page" class="hidden-page page-transition min-h-screen bg-white py-24 px-6">
         <div class="max-w-4xl mx-auto">
-            <button onclick="showMain()" class="text-gray-400 text-xs mb-12 tracking-widest uppercase flex items-center gap-2">
+            <button onclick="showMain()" class="text-gray-400 text-[10px] mb-12 tracking-widest uppercase flex items-center gap-2 hover:text-gold transition">
                 <span>←</span> Back to home
             </button>
-            <h2 class="font-cinzel text-4xl text-center mb-4 tracking-widest uppercase">The Couple</h2>
-            <p class="text-center text-xs gold-accent tracking-[0.2em] mb-20 uppercase font-cinzel">Profile</p>
+            <h2 class="font-cinzel text-3xl text-center mb-4 tracking-widest uppercase">The Couple</h2>
+            <p class="text-center text-[10px] gold-accent tracking-[0.2em] mb-20 uppercase font-cinzel">Profile</p>
             
             <div class="space-y-32">
-                <!-- Groom Section -->
                 <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div class="img-overlay aspect-[3/4] rounded-sm shadow-xl grayscale hover:grayscale-0 transition duration-700">
-                        
+                    <div class="img-overlay aspect-[3/4] rounded-sm shadow-xl grayscale hover:grayscale-0 transition duration-1000">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" alt="新郎">
                     </div>
                     <div class="space-y-6">
-                        <p class="font-cinzel gold-accent text-xs tracking-widest uppercase">The Groom</p>
+                        <p class="font-cinzel gold-accent text-[10px] tracking-widest uppercase">The Groom</p>
                         <h3 class="text-3xl font-bold">Keisuke Hanawa</h3>
-                        <p class="text-sm text-gray-500 italic">花輪 圭祐</p>
+                        <p class="text-sm text-gray-400 font-light italic">花輪 圭祐</p>
                         <div class="h-[1px] w-12 bg-gold"></div>
                         <div class="text-sm text-gray-600 leading-loose space-y-4">
                             <p>1996年 神奈川県生まれ。大学卒業後、エンジニアとして働き始める。趣味はカメラとテニス。</p>
@@ -231,76 +262,27 @@
                     </div>
                 </div>
 
-                <!-- Bride Section -->
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="order-2 md:order-1 space-y-6 text-right md:text-left">
-                        <p class="font-cinzel gold-accent text-xs tracking-widest uppercase">The Bride</p>
+                        <p class="font-cinzel gold-accent text-[10px] tracking-widest uppercase">The Bride</p>
                         <h3 class="text-3xl font-bold">Fumika Sato</h3>
-                        <p class="text-sm text-gray-500 italic">佐藤 文香</p>
+                        <p class="text-sm text-gray-400 font-light italic">佐藤 文香</p>
                         <div class="h-[1px] w-12 bg-gold ml-auto md:ml-0"></div>
                         <div class="text-sm text-gray-600 leading-loose space-y-4">
                             <p>1998年 東京都生まれ。ウェブデザイナー。趣味はヨガとお菓子作り。</p>
                             <p>「圭祐さんの誠実で優しい人柄、そして時折見せる少年のような笑顔が大好きです。尊敬し合えるパートナーとして、豊かな人生を歩んでいきたいです」</p>
                         </div>
                     </div>
-                    <div class="order-1 md:order-2 img-overlay aspect-[3/4] rounded-sm shadow-xl grayscale hover:grayscale-0 transition duration-700">
-                        
-                    </div>
-                </div>
-
-                <!-- Our Story -->
-                <div class="text-center space-y-12 bg-[#fdfbf7] p-16 rounded-sm">
-                    <h3 class="font-cinzel text-2xl tracking-widest uppercase">Our Story</h3>
-                    <div class="max-w-xl mx-auto space-y-8 text-sm text-gray-600 leading-relaxed">
-                        <div class="space-y-2">
-                            <p class="gold-accent font-bold">2023.05</p>
-                            <p>共通の友人の紹介で出会う</p>
-                        </div>
-                        <div class="space-y-2">
-                            <p class="gold-accent font-bold">2025.10</p>
-                            <p>思い出の場所でプロポーズ</p>
-                        </div>
-                        <div class="space-y-2">
-                            <p class="gold-accent font-bold">2026.10</p>
-                            <p>東京會舘にて結婚式を挙行</p>
-                        </div>
+                    <div class="order-1 md:order-2 img-overlay aspect-[3/4] rounded-sm shadow-xl grayscale hover:grayscale-0 transition duration-1000">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop" alt="新婦">
                     </div>
                 </div>
             </div>
-
+            
             <div class="mt-32 text-center">
-                <button onclick="showRSVP()" class="bg-gold text-white px-12 py-4 rounded-full text-sm tracking-widest shadow-lg">
-                    出席回答はこちら
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- RSVP Page -->
-    <div id="rsvp-page" class="hidden-page page-transition min-h-screen bg-[#f8f5f0] py-20 px-6">
-        <div class="max-w-2xl mx-auto bg-white p-8 md:p-12 shadow-2xl rounded-sm">
-            <button onclick="showMain()" class="text-gray-400 text-xs mb-8 tracking-widest uppercase">← Back to home</button>
-            <h2 class="font-cinzel text-4xl text-center mb-16 tracking-widest">RSVP</h2>
-            <form onsubmit="submitRSVP(event)" class="space-y-8">
-                <div class="grid grid-cols-2 gap-4">
-                    <label class="border p-4 text-center cursor-pointer hover:border-gold transition has-[:checked]:bg-gold has-[:checked]:text-white">
-                        <input type="radio" name="att" class="hidden" required> ご出席
-                    </label>
-                    <label class="border p-4 text-center cursor-pointer hover:border-gold transition has-[:checked]:bg-gold has-[:checked]:text-white">
-                        <input type="radio" name="att" class="hidden"> ご欠席
-                    </label>
-                </div>
-                <div class="space-y-4">
-                    <input type="text" placeholder="お名前（フルネーム）" class="w-full border-b py-4 focus:border-gold transition outline-none bg-transparent" required>
-                    <input type="text" placeholder="ご住所" class="w-full border-b py-4 focus:border-gold transition outline-none bg-transparent">
-                    <textarea placeholder="お二人へのメッセージ・アレルギー等" rows="4" class="w-full border-b py-4 focus:border-gold transition outline-none bg-transparent"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-gold text-white py-5 font-bold tracking-[0.3em] uppercase text-sm mt-8 shadow-lg">Confirm</button>
-            </form>
-            <div id="success-msg" class="hidden text-center py-20">
-                <p class="text-xl font-bold gold-accent">回答を送信しました</p>
-                <p class="text-sm text-gray-500 mt-4">ありがとうございました</p>
-                <button onclick="showMain()" class="mt-8 text-xs underline text-gray-400">トップページへ戻る</button>
+                <a href="https://forms.gle/V3ySGAhySVwtayby8" target="_blank" class="bg-gold text-white px-12 py-5 rounded-full text-[10px] tracking-widest shadow-xl uppercase font-bold hover:opacity-90 transition inline-block">
+                    RSVP - 出席回答はこちら
+                </a>
             </div>
         </div>
     </div>
@@ -310,19 +292,14 @@
             document.querySelectorAll('.page-transition').forEach(p => p.classList.add('hidden-page'));
             const target = document.getElementById(id);
             target.classList.remove('hidden-page');
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        function showRSVP() { navigate('rsvp-page'); }
         function showProfile() { navigate('profile-page'); }
         function showMain() { navigate('main-page'); }
-        function submitRSVP(e) {
-            e.preventDefault();
-            document.querySelector('#rsvp-page form').classList.add('hidden');
-            document.getElementById('success-msg').classList.remove('hidden');
-        }
     </script>
 </body>
 </html>
 
 ```
+
 
