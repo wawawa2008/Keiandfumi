@@ -63,17 +63,19 @@
             opacity: 0;
             z-index: 0;
             transition: opacity 1.5s ease-in-out;
+            object-fit: cover;
         }
         .slide-img.active {
             opacity: 1;
             z-index: 1;
         }
 
-        /* Hero Background */
-        .hero-bg {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/IMG_1637.jpeg');
-            background-size: cover;
-            background-position: center;
+        /* Hero Overlay for Text Visibility */
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 2;
         }
         
         .map-container {
@@ -138,9 +140,14 @@
 
     <!-- メインコンテンツ -->
     <div id="main-page" class="page-transition hidden-page">
-        <!-- Hero Section -->
-        <section id="top" class="h-screen flex flex-col items-center justify-center text-center relative text-white hero-bg">
-            <div class="absolute inset-0 bg-black/10 z-0"></div>
+        <!-- Hero Section with Slideshow -->
+        <section id="top" class="h-screen flex flex-col items-center justify-center text-center relative text-white bg-black overflow-hidden">
+            <!-- Background Slideshow Container -->
+            <div id="hero-slideshow" class="absolute inset-0 z-0">
+                <!-- Images will be injected by JS -->
+            </div>
+            <div class="hero-overlay"></div>
+            
             <div class="z-10 px-4">
                 <p class="font-cinzel tracking-[0.4em] mb-4 text-gray-200 uppercase text-xs sm:text-sm">2026.10.25 SUN</p>
                 <h1 class="text-4xl sm:text-6xl md:text-8xl font-cinzel mb-8 tracking-tighter">Keisuke & Fumika</h1>
@@ -155,7 +162,7 @@
                     </button>
                 </div>
             </div>
-            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50 z-10">
                 <div class="w-[1px] h-12 bg-white"></div>
             </div>
         </section>
@@ -388,6 +395,16 @@
         const loginError = document.getElementById('login-error');
         const passwordInput = document.getElementById('password-input');
 
+        // Hero Slideshow Images
+        const heroImages = [
+            'images/IMG_1637.jpeg',
+            'images/IMG_1635.jpeg',
+            'images/IMG_1632.jpeg',
+            'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2000&auto=format&fit=crop',
+            'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2000&auto=format&fit=crop'
+        ];
+
+        // Groom Memories
         const groomImages = Array.from({ length: 10 }, (_, i) => `https://images.unsplash.com/photo-${[
             '1503944583220-79d8926ad5e2', '1484820540004-14229fe36ca4', '1502781253272-972049e29546',
             '1519238263530-99bdd11df2ea', '1471286174243-e85ae73e3a44', '1519085360753-af0119f7cbe7',
@@ -395,6 +412,7 @@
             '1519238263530-99bdd11df2ea'
         ][i]}?q=80&w=1000&auto=format&fit=crop`);
 
+        // Bride Memories
         const brideImages = Array.from({ length: 10 }, (_, i) => `https://images.unsplash.com/photo-${[
             '1471286174243-e85ae73e3a44', '1515488042361-ee00e0ddd4e4', '1517598024396-46c53fb391a1',
             '1518133910546-b6c2fb7d79e3', '1544126592-807daa215a75', '1491013513194-5df51bed8bb6',
@@ -402,16 +420,28 @@
             '1516627145497-ae6968895b74'
         ][i]}?q=80&w=1000&auto=format&fit=crop`);
 
-        function initSlideshow(containerId, images, countId) {
+        /**
+         * Slideshow Controller
+         * @param {string} containerId - Container ID
+         * @param {string[]} images - Array of image sources
+         * @param {string|null} countId - Optional counter ID
+         */
+        function initSlideshow(containerId, images, countId = null) {
             const container = document.getElementById(containerId);
-            const countSpan = document.getElementById(countId);
+            const countSpan = countId ? document.getElementById(countId) : null;
             const slideElements = [];
 
             images.forEach((src, idx) => {
                 const img = document.createElement('img');
                 img.src = src;
-                img.alt = `Childhood Memory ${idx + 1}`;
-                img.className = `slide-img object-cover w-full h-full grayscale hover:grayscale-0 ${idx === 0 ? 'active' : ''}`;
+                img.alt = `Slide ${idx + 1}`;
+                img.className = `slide-img ${idx === 0 ? 'active' : ''}`;
+                
+                // Add grayscale for profile slides but keep color for hero
+                if (containerId !== 'hero-slideshow') {
+                    img.classList.add('grayscale', 'hover:grayscale-0');
+                }
+                
                 container.appendChild(img);
                 slideElements.push(img);
             });
@@ -421,11 +451,14 @@
                 slideElements[currentIndex].classList.remove('active');
                 currentIndex = (currentIndex + 1) % slideElements.length;
                 slideElements[currentIndex].classList.add('active');
-                countSpan.innerText = currentIndex + 1;
-            }, 5000);
+                if (countSpan) countSpan.innerText = currentIndex + 1;
+            }, 5000); // 5 seconds interval
         }
 
         window.addEventListener('DOMContentLoaded', () => {
+            // Main Hero Slideshow
+            initSlideshow('hero-slideshow', heroImages);
+            // Profile Slideshows
             initSlideshow('groom-slideshow', groomImages, 'groom-count');
             initSlideshow('bride-slideshow', brideImages, 'bride-count');
         });
